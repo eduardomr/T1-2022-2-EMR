@@ -10,7 +10,7 @@ L_02 = 19
 AC = 13
 PR = 6
 AL_BZ = 5
-SPress = 0
+SPres = 0
 SFum = 11
 SJan = 9
 SPor = 10
@@ -27,17 +27,38 @@ GPIO.setup(PR, GPIO.OUT)
 
 
 GPIO.setup(SJan, GPIO.IN)
-GPIO.setup(SPress, GPIO.IN)
+GPIO.setup(SPres, GPIO.IN)
 GPIO.setup(SFum, GPIO.IN)
 GPIO.setup(SPor, GPIO.IN)
 GPIO.setup(SC_IN, GPIO.IN)
 GPIO.setup(SC_OUT, GPIO.IN)
 
 ## Funções de leitura dos sensores
+GPIO.add_event_detect(SJan, GPIO.BOTH)
 def leituraSensorJan():
-    while not GPIO.input(SJan):
-        print("Janela aberta")
-        return 1
+    if GPIO.event_detected(SJan):
+        if GPIO.input(SJan)==1:
+            print("Sensor da janela ativado!")
+        else:
+            print("Sensor da janela desativado!")
+
+GPIO.add_event_detect(SPor, GPIO.BOTH)
+def leituraSensorPor():
+    if GPIO.event_detected(SPor):
+        if GPIO.input(SPor)==1:
+            print("Sensor da porta ativado!")
+        else:
+            print("Sensor da porta desativado!")
+
+GPIO.add_event_detect(SPres, GPIO.BOTH)
+def leituraSensorPres():
+    if GPIO.event_detected(SPres):
+        if GPIO.input(SPres)==1:
+            print("Sensor de presença ativado!")
+        else:
+            print("Sensor de presença desativado!")
+
+
 
 
 
@@ -81,8 +102,13 @@ def desligaPR():
 ##
 
 
+
 while(1):
     leituraSensorJan()
+    leituraSensorPor()
+    leituraSensorPres()
+
+    
     
 
 
