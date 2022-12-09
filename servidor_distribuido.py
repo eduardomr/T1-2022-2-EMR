@@ -19,8 +19,11 @@ SC_OUT = 27
 DHT22 = 18
 
 entrada = "x"
+
 GPIO.setup(L_01, GPIO.OUT)
 GPIO.setup(L_02, GPIO.OUT)
+GPIO.setup(AC, GPIO.OUT)
+GPIO.setup(PR, GPIO.OUT)
 
 def ligaLuz01():
     GPIO.output(L_01, GPIO.HIGH)
@@ -38,23 +41,39 @@ def desligaLuz02():
     GPIO.output(L_02, GPIO.LOW)
     print("Luz 02 desligada")
 
+def ligaAC():
+    GPIO.output(AC, GPIO.HIGH)
+    print("Ar condicionado ligado")
+
+def desligaAC():
+    GPIO.output(AC, GPIO.LOW)
+    print("Ar condicionado desligado")
+
+def ligaPR():
+    GPIO.output(PR, GPIO.HIGH)
+    print("Projetor ligado")
+
+def desligaPR():
+    GPIO.output(PR, GPIO.LOW)
+    print("Projetor desligado")
+
+
+
 
 while(1):
     entrada = input("Digite o comando: ")
     if(entrada == "1"):
-        ligaLuz01()
-
-    if(entrada == "2"):
-        ligaLuz02()
+        ligaAC()
     
-    if(entrada == "3"):
-        desligaLuz01()
+    elif(entrada == "2"):
+        desligaAC()
     
-    if(entrada == "4"):
-        desligaLuz02()
+    if (entrada == "3"):
+        ligaPR()
+    
+    elif(entrada == "4"):
+        desligaPR()
 
-    if(entrada == "5"):
-        break
 
     
 
