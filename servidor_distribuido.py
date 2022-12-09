@@ -25,6 +25,24 @@ GPIO.setup(L_02, GPIO.OUT)
 GPIO.setup(AC, GPIO.OUT)
 GPIO.setup(PR, GPIO.OUT)
 
+
+GPIO.setup(SJan, GPIO.IN)
+GPIO.setup(SPress, GPIO.IN)
+GPIO.setup(SFum, GPIO.IN)
+GPIO.setup(SPor, GPIO.IN)
+GPIO.setup(SC_IN, GPIO.IN)
+GPIO.setup(SC_OUT, GPIO.IN)
+
+## Funções de leitura dos sensores
+def leituraSensorJan():
+    while not GPIO.input(SJan):
+        print("Janela aberta")
+        return 1
+
+
+
+
+## Ligar e desligar luzes
 def ligaLuz01():
     GPIO.output(L_01, GPIO.HIGH)
     print("Luz 01 ligada")
@@ -41,6 +59,9 @@ def desligaLuz02():
     GPIO.output(L_02, GPIO.LOW)
     print("Luz 02 desligada")
 
+
+
+## Ligar e desligar ar condicionado e projetor
 def ligaAC():
     GPIO.output(AC, GPIO.HIGH)
     print("Ar condicionado ligado")
@@ -57,22 +78,12 @@ def desligaPR():
     GPIO.output(PR, GPIO.LOW)
     print("Projetor desligado")
 
-
+##
 
 
 while(1):
-    entrada = input("Digite o comando: ")
-    if(entrada == "1"):
-        ligaAC()
+    leituraSensorJan()
     
-    elif(entrada == "2"):
-        desligaAC()
-    
-    if (entrada == "3"):
-        ligaPR()
-    
-    elif(entrada == "4"):
-        desligaPR()
 
 
     
