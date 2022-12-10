@@ -39,6 +39,8 @@ GPIO.add_event_detect(SJan, GPIO.BOTH)
 GPIO.add_event_detect(SPor, GPIO.BOTH)
 GPIO.add_event_detect(SPres, GPIO.BOTH)
 GPIO.add_event_detect(SFum, GPIO.RISING)
+GPIO.add_event_detect(SC_IN, GPIO.RISING)
+GPIO.add_event_detect(SC_IN, GPIO.RISING)
 
 def leituraSensorJan():
     if GPIO.event_detected(SJan):
@@ -119,14 +121,19 @@ def monitoraFumaca():
         print("Sirene ligada!")
          
 ## CONTADOR DE PESSOAS
-def contaPessoas()
-    cont = 0
-    if GPIO.output(SC_IN, GPIO.HIGH)
+def contadorPessoas():
+    if GPIO.event_detected(SC_IN):
+        pessoas += 1
+        print(pessoas)
+    if GPIO.event_detected(SC_OUT):
+        pessoas= pessoas - 1
+        print(pessoas)
 
 GPIO.output(AL_BZ, GPIO.LOW)
+pessoas = 0
 while(1):
-    ligarAlarme()
-    monitoraFumaca()
+    contadorPessoas()
+   
     
 
     
