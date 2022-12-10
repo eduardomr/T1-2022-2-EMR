@@ -104,15 +104,27 @@ def desligaPR():
 def ligarAlarme():
 
     if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
+        ## INTEGRAR COM O SERVIDOR CENTRAL
         GPIO.output(AL_BZ, GPIO.HIGH)
         print("Sirene ligada!")
 
-    
+ def monitoraFumaca():
+    if GPIO.input(SFum)==1:
+        print("Fumaça detectada!")
+        GPIO.output(AL_BZ, GPIO.HIGH)
+        print("Sirene ligada!"
+         
 
 
 GPIO.output(AL_BZ, GPIO.LOW)
 while(1):
     ligarAlarme()
+    monitoraFumaca()
+    if input() == "s":
+        break
+    if input() == "x":
+        GPIO.output(AL_BZ, GPIO.LOW)
+        print("Sirene desligada!")
 
     
     
