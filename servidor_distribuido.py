@@ -103,8 +103,7 @@ def desligaPR():
 ## Sistema de alarme
 def ligarAlarme():
 
-    if leituraSensorJan() == 1 || leituraSensorPor() == 1 || leituraSensorPres() == 1:
-        print("Janela aberta")
+    if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
         GPIO.output(AL_BZ, GPIO.HIGH)
         print("Sirene ligada!")
 
