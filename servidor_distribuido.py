@@ -36,6 +36,10 @@ GPIO.setup(SC_OUT, GPIO.IN)
 
 ## Funções de leitura dos sensores
 GPIO.add_event_detect(SJan, GPIO.BOTH)
+GPIO.add_event_detect(SPor, GPIO.BOTH)
+GPIO.add_event_detect(SPres, GPIO.BOTH)
+GPIO.add_event_detect(SFum, GPIO.RISING)
+
 def leituraSensorJan():
     if GPIO.event_detected(SJan):
         if GPIO.input(SJan)==1:
@@ -43,7 +47,7 @@ def leituraSensorJan():
         else:
             return 0
 
-GPIO.add_event_detect(SPor, GPIO.BOTH)
+
 def leituraSensorPor():
     if GPIO.event_detected(SPor):
         if GPIO.input(SPor)==1:
@@ -51,7 +55,7 @@ def leituraSensorPor():
         else:
             return 0
 
-GPIO.add_event_detect(SPres, GPIO.BOTH)
+
 def leituraSensorPres():
     if GPIO.event_detected(SPres):
         if GPIO.input(SPres)==1:
@@ -102,29 +106,28 @@ def desligaPR():
 
 ## Sistema de alarme
 def ligarAlarme():
-
+    ## ANTES DE LIGAR, VERIFICAR SE HÁ ALGUM SENSOR ATIVADO
     if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
         ## INTEGRAR COM O SERVIDOR CENTRAL
         GPIO.output(AL_BZ, GPIO.HIGH)
         print("Sirene ligada!")
 
- def monitoraFumaca():
-    if GPIO.input(SFum)==1:
+def monitoraFumaca():
+    if GPIO.event_detected(SFum):
         print("Fumaça detectada!")
         GPIO.output(AL_BZ, GPIO.HIGH)
-        print("Sirene ligada!"
+        print("Sirene ligada!")
          
-
+## CONTADOR DE PESSOAS
+def contaPessoas()
+    cont = 0
+    if GPIO.output(SC_IN, GPIO.HIGH)
 
 GPIO.output(AL_BZ, GPIO.LOW)
 while(1):
     ligarAlarme()
     monitoraFumaca()
-    if input() == "s":
-        break
-    if input() == "x":
-        GPIO.output(AL_BZ, GPIO.LOW)
-        print("Sirene desligada!")
+    
 
     
     
