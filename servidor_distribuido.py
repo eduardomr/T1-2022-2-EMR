@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import time
 
 GPIO.setmode(GPIO.BCM)
 
@@ -40,7 +41,7 @@ GPIO.add_event_detect(SPor, GPIO.BOTH)
 GPIO.add_event_detect(SPres, GPIO.BOTH)
 GPIO.add_event_detect(SFum, GPIO.RISING)
 GPIO.add_event_detect(SC_IN, GPIO.RISING)
-GPIO.add_event_detect(SC_IN, GPIO.RISING)
+GPIO.add_event_detect(SC_OUT, GPIO.RISING)
 
 def leituraSensorJan():
     if GPIO.event_detected(SJan):
@@ -121,12 +122,14 @@ def monitoraFumaca():
         print("Sirene ligada!")
          
 ## CONTADOR DE PESSOAS
+
 def contadorPessoas():
+    global pessoas
     if GPIO.event_detected(SC_IN):
-        pessoas += 1
+        pessoas = pessoas + 1
         print(pessoas)
-    if GPIO.event_detected(SC_OUT):
-        pessoas= pessoas - 1
+    elif GPIO.event_detected(SC_OUT):
+        pessoas = pessoas -1
         print(pessoas)
 
 GPIO.output(AL_BZ, GPIO.LOW)
