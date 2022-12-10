@@ -24,6 +24,7 @@ GPIO.setup(L_01, GPIO.OUT)
 GPIO.setup(L_02, GPIO.OUT)
 GPIO.setup(AC, GPIO.OUT)
 GPIO.setup(PR, GPIO.OUT)
+GPIO.setup(AL_BZ, GPIO.OUT)
 
 
 GPIO.setup(SJan, GPIO.IN)
@@ -38,25 +39,25 @@ GPIO.add_event_detect(SJan, GPIO.BOTH)
 def leituraSensorJan():
     if GPIO.event_detected(SJan):
         if GPIO.input(SJan)==1:
-            print("Sensor da janela ativado!")
+            return 1
         else:
-            print("Sensor da janela desativado!")
+            return 0
 
 GPIO.add_event_detect(SPor, GPIO.BOTH)
 def leituraSensorPor():
     if GPIO.event_detected(SPor):
         if GPIO.input(SPor)==1:
-            print("Sensor da porta ativado!")
+            return 1
         else:
-            print("Sensor da porta desativado!")
+            return 0
 
 GPIO.add_event_detect(SPres, GPIO.BOTH)
 def leituraSensorPres():
     if GPIO.event_detected(SPres):
         if GPIO.input(SPres)==1:
-            print("Sensor de presença ativado!")
+            return 1
         else:
-            print("Sensor de presença desativado!")
+            return 0
 
 
 
@@ -99,14 +100,20 @@ def desligaPR():
     GPIO.output(PR, GPIO.LOW)
     print("Projetor desligado")
 
-##
+## Sistema de alarme
+def ligarAlarme():
+
+    if leituraSensorJan() == 1 || leituraSensorPor() == 1 || leituraSensorPres() == 1:
+        print("Janela aberta")
+        GPIO.output(AL_BZ, GPIO.HIGH)
+        print("Sirene ligada!")
+
+    
 
 
-
+GPIO.output(AL_BZ, GPIO.LOW)
 while(1):
-    leituraSensorJan()
-    leituraSensorPor()
-    leituraSensorPres()
+    ligarAlarme()
 
     
     
