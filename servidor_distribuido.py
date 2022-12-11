@@ -1,11 +1,12 @@
 import RPi.GPIO as GPIO
-import socket
+from socket import *
 
-ip_servidor = gethostname()
+host = '127.0.0.1'
 port = 5000
 servidor_distribuido = socket(AF_INET, SOCK_STREAM)
-destino = (ip_servidor, port)
-servidor_distribuido.connect(destino)
+servidor_distribuido.bind((host, port))
+servidor_distribuido.listen()
+conexao, docliente = servidor_distribuido.accept()
 
 
 
@@ -153,11 +154,11 @@ def contadorPessoas():
 # ------------------------------------------------------------------------------------
 
 while(1):
-    msg = servidor_distribuido.recv(1024)
+    msg = conexao.recv(1024)
     if not msg:
         break
     print("recebido:", msg.decode())
-    servidor_distribuido.send(msg)
+    conexao.send(msg)
 
     if msg.decode() == "l1":
         ligaLuz01()

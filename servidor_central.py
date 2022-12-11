@@ -1,19 +1,18 @@
-import socket
+from socket import *
 import threading
 import time
 
 
-host = gethostname()
+host = '127.0.0.1'
 port = 5000
 servidor_central = socket(AF_INET, SOCK_STREAM)
-servidor_central.bind((host, port))
-servidor_central.listen()
-conexao, docliente = servidor_central.accept()
+destino = (host,port)
+servidor_central.connect(destino)
 
-print("o cliente =", docliente, "conectou-se ao servidor")
+
 while(1):
-    msg = conexao.recv(1024)
-    if not msg:
+    mensagem = input()
+    servidor_central.send(bytes(mensagem,"utf8"))
+    if mensagem == "x":
+        tcp.close()
         break
-    print("recebido:", msg.decode())
-    conexao.send(msg)
