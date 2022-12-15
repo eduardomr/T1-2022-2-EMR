@@ -186,7 +186,7 @@ def contadorPessoas():
 def main():
     configuracao()
     while True:
-        msg = conexao.recv()
+        msg = conexao.recv(1024)
         if not msg:
             break
         print("recebido:", msg.decode())
