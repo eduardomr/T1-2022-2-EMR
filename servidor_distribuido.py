@@ -45,17 +45,18 @@ def configuracao():
     with open('configuracao_sala_01.json', 'r') as f:
         data = json.load(f)
         L_01 = data["outputs"][0]["gpio"]
-        L_02 = data["outputs"][0]["gpio"]
-        AC = data["outputs"][0]["gpio"]
-        PR = data["outputs"][0]["gpio"]
-        AL_BZ = data["outputs"][0]["gpio"]
-        SPres = data["outputs"][0]["gpio"]
-        SFum = data["outputs"][0]["gpio"]
-        SJan = data["outputs"][0]["gpio"]
-        SPor = data["outputs"][0]["gpio"]
-        SC_IN = data["outputs"][0]["gpio"]
-        SC_OUT = data["outputs"][0]["gpio"]
-        DHT22 = data["outputs"][0]["gpio"]
+        L_02 = data["outputs"][1]["gpio"]
+        PR = data["outputs"][2]["gpio"]
+        AC = data["outputs"][3]["gpio"]
+        
+        AL_BZ = data["outputs"][4]["gpio"]
+        SPres = data["inputs"][0]["gpio"]
+        SFum = data["outputs"][1]["gpio"]
+        SJan = data["outputs"][2]["gpio"]
+        SPor = data["outputs"][3]["gpio"]
+        SC_IN = data["outputs"][4]["gpio"]
+        SC_OUT = data["outputs"][5]["gpio"]
+        DHT22 = data["sensor_temperatura"][0]["gpio"]
     f.close()
 
     # Configuração dos pinos GPIOs (SAIDA/ENTRADA)
@@ -210,7 +211,7 @@ def main():
         elif msg.decode() == "x":
             servidor_distribuido.close()
             break
-        
+
 if __name__ == "__main__":
     main()
 
