@@ -44,18 +44,18 @@ def configuracao():
     global DHT22
     with open('configuracao_sala_01.json', 'r') as f:
         data = json.load(f)
-        L_01 = data["L_01"]
-        L_02 = data["L_02"]
-        AC = data["AC"]
-        PR = data["PR"]
-        AL_BZ = data["AL_BZ"]
-        SPres = data["SPres"]
-        SFum = data["SFum"]
-        SJan = data["SJan"]
-        SPor = data["SPor"]
-        SC_IN = data["SC_IN"]
-        SC_OUT = data["SC_OUT"]
-        DHT22 = data["DHT22"]
+        L_01 = data["outputs"][0]["gpio"]
+        L_02 = data["outputs"][0]["gpio"]
+        AC = data["outputs"][0]["gpio"]
+        PR = data["outputs"][0]["gpio"]
+        AL_BZ = data["outputs"][0]["gpio"]
+        SPres = data["outputs"][0]["gpio"]
+        SFum = data["outputs"][0]["gpio"]
+        SJan = data["outputs"][0]["gpio"]
+        SPor = data["outputs"][0]["gpio"]
+        SC_IN = data["outputs"][0]["gpio"]
+        SC_OUT = data["outputs"][0]["gpio"]
+        DHT22 = data["outputs"][0]["gpio"]
     f.close()
 
     # Configuração dos pinos GPIOs (SAIDA/ENTRADA)
@@ -210,8 +210,9 @@ def main():
         elif msg.decode() == "x":
             servidor_distribuido.close()
             break
-
 main()
+
+
 
         
 
