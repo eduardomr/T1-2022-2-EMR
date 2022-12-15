@@ -51,11 +51,11 @@ def configuracao():
         
         AL_BZ = data["outputs"][4]["gpio"]
         SPres = data["inputs"][0]["gpio"]
-        SFum = data["outputs"][1]["gpio"]
-        SJan = data["outputs"][2]["gpio"]
-        SPor = data["outputs"][3]["gpio"]
-        SC_IN = data["outputs"][4]["gpio"]
-        SC_OUT = data["outputs"][5]["gpio"]
+        SFum = data["inputs"][1]["gpio"]
+        SJan = data["inputs"][2]["gpio"]
+        SPor = data["inputs"][3]["gpio"]
+        SC_IN = data["inputs"][4]["gpio"]
+        SC_OUT = data["inputs"][5]["gpio"]
         DHT22 = data["sensor_temperatura"][0]["gpio"]
     f.close()
 
