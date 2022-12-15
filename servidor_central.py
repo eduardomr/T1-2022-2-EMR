@@ -26,7 +26,7 @@ def configura():
     destino1 = (ip_distribuido1,porta1)
     #destino2 = (ip_distribuido2,porta2)
     print(destino1)
-    #servidor_central1.connect(destino1)
+    servidor_central1.connect(destino1)
     #servidor_central2.connect(destino2)
 
 
