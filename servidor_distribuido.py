@@ -210,6 +210,9 @@ def main():
         elif msg.decode() == "x":
             servidor_distribuido.close()
             break
+
+main()
+
         
 
     
