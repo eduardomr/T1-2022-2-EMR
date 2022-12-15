@@ -210,7 +210,9 @@ def main():
         elif msg.decode() == "x":
             servidor_distribuido.close()
             break
-main()
+        
+if __name__ == "__main__":
+    main()
 
 
 
