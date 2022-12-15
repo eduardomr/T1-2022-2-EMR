@@ -7,6 +7,7 @@ import json
 def configura():
     global ip_distribuido1
     global ip_distribuido2
+    global servidor_central1
     
     with open('configuracao_sala_01.json', 'r') as f:
         data = json.load(f)
