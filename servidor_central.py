@@ -25,7 +25,8 @@ def configura():
     #servidor_central2 = socket(AF_INET, SOCK_STREAM)
     destino1 = (ip_distribuido1,porta1)
     #destino2 = (ip_distribuido2,porta2)
-    servidor_central1.connect(destino1)
+    print(destino1)
+    #servidor_central1.connect(destino1)
     #servidor_central2.connect(destino2)
 
 
