@@ -8,7 +8,7 @@ def configura():
     global ip_distribuido1
     global ip_distribuido2
     global servidor_central1
-    
+
     with open('configuracao_sala_01.json', 'r') as f:
         data = json.load(f)
         ip_distribuido1 = data["ip_servidor_distribuido"]
@@ -54,18 +54,25 @@ def menu_sala1():
     opt = int(input())
     if opt == 1:
         servidor_central1.send(bytes("L01","utf8"))
+        menu_sala1()
     elif opt == 2:
         servidor_central1.send(bytes("DL01","utf8"))
+        menu_sala1()
     elif opt == 3:
         servidor_central1.send(bytes("L02","utf8"))
+        menu_sala1()
     elif opt == 4:
         servidor_central1.send(bytes("DL02","utf8"))
+        menu_sala1()
     elif opt == 5:
         servidor_central1.send(bytes("AC","utf8"))
+        menu_sala1()
     elif opt == 6:
         servidor_central1.send(bytes("DAC","utf8"))
+        menu_sala1()
     elif opt == 7:
         servidor_central1.send(bytes("AL","utf8"))
+        menu_sala1()
     else:
         print("Opção inválida!")
         menu_sala1()
