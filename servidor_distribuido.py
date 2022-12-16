@@ -249,42 +249,26 @@ def desligaLuzes():
 
 # Sistema de alarme
 def ligarAlarme():
-    if GPIO.input(SJan)==1:
-        print("Janela aberta!")
+    global alarme
+    if GPIO.input(SJan)==1 or GPIO.input(SPor)==1 or GPIO.input(SPres)==1 or GPIO.input(SFum)==1 or GPIO.input(SC_IN)==1 or GPIO.input(SC_OUT)==1:
         print("Não é possível ligar o sistema de alarme")
+        print("Verifique os sensores!")
         data = datetime.datetime.now()
         with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
                 writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, janela aberta!'])
-        return
-    elif GPIO.input(SPor)==1:
-        print("Porta aberta!")
-        print("Não é possível ligar o sistema de alarme")
-        data = datetime.datetime.now()
-        with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
-                writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, porta aberta!'])	
-        return
-    elif GPIO.input(SPres)==1:
-        print("Presença detectada!")
-        print("Não é possível ligar o sistema de alarme")
-        data = datetime.datetime.now()
-        with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
-                writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, presença detectada!'])
-        return	
+                writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, verifique os sensores'])
+        alarme = 0
     else:
         data = datetime.datetime.now()
         with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
                 writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 writer.writerow([data, 'alarme ligado'])	
-        if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
-            ## INTEGRAR COM O SERVIDOR CENTRAL
-            GPIO.output(AL_BZ, GPIO.HIGH)
-            print("Sirene ligada!")
+        alarme = 1
 
 def desligarAlarme():
     print("Sistema de larme desligado")
+    global alarme
+    alarme = 0
     if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
         ligaLuzes()
         time.sleep(15)
@@ -323,12 +307,19 @@ def contadorPessoas():
 
 # ------------------------------------------------------------------------------------
 def main():
+    global alarme
     global sala
     sala = int(input("Esta sala usa configuração 1 ou 2?"))
     configuracao()
     desligarAlarme()
     GPIO.output(AL_BZ, GPIO.LOW)
     while True:
+        if alarme == 1:
+            if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
+            ## INTEGRAR COM O SERVIDOR CENTRAL
+            GPIO.output(AL_BZ, GPIO.HIGH)
+            print("Sirene ligada!")
+            
         if sala == 1: 
             msg = conexao1.recv(1024)
             if not msg:
