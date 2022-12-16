@@ -319,17 +319,15 @@ def main():
             if msg.decode() == "L01":
                 ligaLuz01()
                 data = datetime.datetime.now()
-                f = open('logs\log_sala1.csv', 'w', newline='', encoding='utf-8')
-                writer = csv.writer(f)
-                writer.writerow([data, 'Luz 01 ligada'])
-                writer.close()
+                with open('./logs/log_sala1.csv', 'w', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=';' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Luz 01 ligada'])
             elif msg.decode() == "DL01":
                 desligaLuz01()
                 data = datetime.datetime.now()
-                f = open('\logs\log_sala1.csv', 'w', newline='', encoding='utf-8')
-                writer = csv.writer(f)
-                writer.writerow([data, 'Luz 02 desligada'])
-                writer.close()
+                with open('./logs/log_sala1.csv', 'w', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=';' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Luz 01 ligada'])
             elif msg.decode() == "L02":
                 ligaLuz02()
             elif msg.decode() == "DL02":
