@@ -6,6 +6,7 @@ import json
 
 def configura():
     global servidor_central1
+    global servidor_central2
 
     with open('configuracao_sala_01.json', 'r') as f:
         data = json.load(f)
