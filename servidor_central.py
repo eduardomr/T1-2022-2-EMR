@@ -41,7 +41,7 @@ def menu_sala1():
     print("8 - Ligar todas as lâmpadas da sala")
     print("9 - Desligar todas as lâmpadas da sala")
     print("10 - Ligar todas as cargas da sala")
-    print("10 - Desligar todas as cargas da sala")
+    print("11 - Desligar todas as cargas da sala")
     opt = int(input())
     if opt == 1:
         servidor_central1.send(bytes("L01","utf8"))
@@ -63,13 +63,17 @@ def menu_sala1():
         menu_sala1()
     elif opt == 7:
         servidor_central1.send(bytes("AL","utf8"))
+        menu_sala1()
     elif opt == 8:
         servidor_central1.send(bytes("L12","utf8"))
+        menu_sala1()
     elif opt == 9:
         servidor_central1.send(bytes("D12","utf8"))
+        menu_sala1()
     elif opt == 10:
         servidor_central1.send(bytes("LG","utf8"))
-    elif opt == 7:
+        menu_sala1()
+    elif opt == 11:
         servidor_central1.send(bytes("DG","utf8"))
         menu_sala1()
     else:
@@ -158,24 +162,28 @@ def menu_sala2():
         menu_sala1()
     elif opt == 3:
         servidor_central2.send(bytes("L02","utf8"))
-        menu_sala1()
+        menu_sala2()
     elif opt == 4:
         servidor_central2.send(bytes("DL02","utf8"))
-        menu_sala1()
+        menu_sala2()
     elif opt == 5:
         servidor_central2.send(bytes("AC","utf8"))
-        menu_sala1()
+        menu_sala2()
     elif opt == 6:
         servidor_central2.send(bytes("DAC","utf8"))
-        menu_sala1()
+        menu_sala2()
     elif opt == 7:
         servidor_central2.send(bytes("AL","utf8"))
+        menu_sala2()
     elif opt == 8:
         servidor_central2.send(bytes("L12","utf8"))
+        menu_sala2()
     elif opt == 9:
         servidor_central2.send(bytes("D12","utf8"))
+        menu_sala2()
     elif opt == 10:
         servidor_central2.send(bytes("LG","utf8"))
+        menu_sala2()
     elif opt == 7:
         servidor_central2.send(bytes("DG","utf8"))
         menu_sala2()
