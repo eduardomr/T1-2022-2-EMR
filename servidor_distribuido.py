@@ -77,10 +77,6 @@ SC_OUT = -1
 DHT22 = -1
 # ------------------------------------------------------------------------------------
 def configuracao():
-    if sala ==1:
-        escuta1()
-    elif sala ==2 :
-        escuta2()
     global L_01
     global L_02
     global AC
@@ -93,22 +89,44 @@ def configuracao():
     global SC_IN
     global SC_OUT
     global DHT22
-    with open('configuracao_sala_01.json', 'r') as f:
-        data = json.load(f)
-        L_01 = data["outputs"][0]["gpio"]
-        L_02 = data["outputs"][1]["gpio"]
-        PR = data["outputs"][2]["gpio"]
-        AC = data["outputs"][3]["gpio"]
-        
-        AL_BZ = data["outputs"][4]["gpio"]
-        SPres = data["inputs"][0]["gpio"]
-        SFum = data["inputs"][1]["gpio"]
-        SJan = data["inputs"][2]["gpio"]
-        SPor = data["inputs"][3]["gpio"]
-        SC_IN = data["inputs"][4]["gpio"]
-        SC_OUT = data["inputs"][5]["gpio"]
-        DHT22 = data["sensor_temperatura"][0]["gpio"]
-    f.close()
+    if sala ==1:
+        escuta1()
+        with open('configuracao_sala_01.json', 'r') as f:
+            data = json.load(f)
+            L_01 = data["outputs"][0]["gpio"]
+            L_02 = data["outputs"][1]["gpio"]
+            PR = data["outputs"][2]["gpio"]
+            AC = data["outputs"][3]["gpio"]
+            
+            AL_BZ = data["outputs"][4]["gpio"]
+            SPres = data["inputs"][0]["gpio"]
+            SFum = data["inputs"][1]["gpio"]
+            SJan = data["inputs"][2]["gpio"]
+            SPor = data["inputs"][3]["gpio"]
+            SC_IN = data["inputs"][4]["gpio"]
+            SC_OUT = data["inputs"][5]["gpio"]
+            DHT22 = data["sensor_temperatura"][0]["gpio"]
+        f.close()
+    elif sala ==2 :
+        escuta2()
+        with open('configuracao_sala_02.json', 'r') as f:
+            data = json.load(f)
+            L_01 = data["outputs"][0]["gpio"]
+            L_02 = data["outputs"][1]["gpio"]
+            PR = data["outputs"][2]["gpio"]
+            AC = data["outputs"][3]["gpio"]
+            
+            AL_BZ = data["outputs"][4]["gpio"]
+            SPres = data["inputs"][0]["gpio"]
+            SFum = data["inputs"][1]["gpio"]
+            SJan = data["inputs"][2]["gpio"]
+            SPor = data["inputs"][3]["gpio"]
+            SC_IN = data["inputs"][4]["gpio"]
+            SC_OUT = data["inputs"][5]["gpio"]
+            DHT22 = data["sensor_temperatura"][0]["gpio"]
+        f.close()
+    
+   
 
     # Configuracao dos pinos GPIOs (SAIDA/ENTRADA)
 
