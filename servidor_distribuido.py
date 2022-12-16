@@ -319,14 +319,14 @@ def main():
             if msg.decode() == "L01":
                 ligaLuz01()
                 data = datetime.datetime.now()
-                f = open('/logs/log_sala1.csv', 'w', newline='', encoding='utf-8')
+                f = open('logs\log_sala1.csv', 'w', newline='', encoding='utf-8')
                 writer = csv.writer(f)
                 writer.writerow([data, 'Luz 01 ligada'])
                 writer.close()
             elif msg.decode() == "DL01":
                 desligaLuz01()
                 data = datetime.datetime.now()
-                f = open('/logs/log_sala1.csv', 'w', newline='', encoding='utf-8')
+                f = open('\logs\log_sala1.csv', 'w', newline='', encoding='utf-8')
                 writer = csv.writer(f)
                 writer.writerow([data, 'Luz 02 desligada'])
                 writer.close()
