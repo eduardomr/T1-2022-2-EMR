@@ -24,7 +24,6 @@ def configura():
     servidor_central2 = socket(AF_INET, SOCK_STREAM)
     destino1 = (ip_distribuido1,porta1)
     destino2 = (ip_distribuido2,porta2)
-    print(destino1)
     servidor_central1.connect(destino1)
     servidor_central2.connect(destino2)
 
@@ -270,8 +269,8 @@ def main():
     pessoas_sala1 = 0
     pessoas_sala2 = 0
     configura()
-    #escuta_sala1()
-    #escuta_sala2()
+    escuta_sala1()
+    escuta_sala2()
     menu_principal()
 
 
