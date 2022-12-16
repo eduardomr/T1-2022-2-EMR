@@ -13,25 +13,25 @@ def escuta1():
         host = ''
         port = data["porta_servidor_distribuido"]
     f.close()
-    global servidor_distribuido
-    servidor_distribuido = socket(AF_INET, SOCK_STREAM)
-    servidor_distribuido.bind((host, port))
-    servidor_distribuido.listen()
-    global conexao
-    global docliente
-    conexao, docliente = servidor_distribuido.accept()
+    global servidor_distribuido1
+    servidor_distribuido1 = socket(AF_INET, SOCK_STREAM)
+    servidor_distribuido1.bind((host, port))
+    servidor_distribuido1.listen()
+    global conexao1
+    global docliente1
+    conexao1, docliente1 = servidor_distribuido.accept()
 
 def configura_envio1():
-    global servidor_distribuido
+    global servidor_distribuido_envia1
     with open('configuracao_sala_01.json', 'r') as f:
         data = json.load(f)
         ip_central = data["ip_servidor_central"]
         porta_central = data["porta_servidor_central"]
     # Closing file
     f.close()
-    servidor_distribuido = socket(AF_INET, SOCK_STREAM)
+    servidor_distribuido_envia1 = socket(AF_INET, SOCK_STREAM)
     destino = (ip_central, porta_central)
-    servidor_distribuido.connect(destino)
+    servidor_distribuido_envia1.connect(destino)
 
 def escuta2():
     with open('configuracao_sala_02.json', 'r') as f:
@@ -39,25 +39,25 @@ def escuta2():
         host = ''
         port = data["porta_servidor_distribuido"]
     f.close()
-    global servidor_distribuido
-    servidor_distribuido = socket(AF_INET, SOCK_STREAM)
-    servidor_distribuido.bind((host, port))
-    servidor_distribuido.listen()
-    global conexao
-    global docliente
-    conexao, docliente = servidor_distribuido.accept()
+    global servidor_distribuido2
+    servidor_distribuido2 = socket(AF_INET, SOCK_STREAM)
+    servidor_distribuido2.bind((host, port))
+    servidor_distribuido2.listen()
+    global conexao2
+    global docliente2
+    conexao2, docliente2 = servidor_distribuido.accept()
 
 def configura_envio2():
-    global servidor_distribuido
+    global servidor_distribuido_envia2
     with open('configuracao_sala_02.json', 'r') as f:
         data = json.load(f)
         ip_central = data["ip_servidor_central"]
         porta_central = data["porta_servidor_central"]
     # Closing file
     f.close()
-    servidor_distribuido = socket(AF_INET, SOCK_STREAM)
-    destino = (ip_central, porta_central)
-    servidor_distribuido.connect(destino)
+    servidor_distribuido_envia2 = socket(AF_INET, SOCK_STREAM)
+    destino2 = (ip_central, porta_central)
+    servidor_distribuido_envia2.connect(destino2)
 
 GPIO.setmode(GPIO.BCM)
 
