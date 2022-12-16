@@ -9,7 +9,7 @@ global sala
 def escuta1():
     with open('configuracao_sala_01.json', 'r') as f:
         data = json.load(f)
-        host = data["ip_servidor_central"]
+        host = ''
         port = data["porta_servidor_distribuido"]
     f.close()
     global servidor_distribuido
