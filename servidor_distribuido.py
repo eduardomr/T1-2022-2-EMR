@@ -314,11 +314,6 @@ def main():
     desligarAlarme()
     GPIO.output(AL_BZ, GPIO.LOW)
     while True:
-        if alarme == 1:
-            if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
-                ## INTEGRAR COM O SERVIDOR CENTRAL
-                GPIO.output(AL_BZ, GPIO.HIGH)
-                print("Sirene ligada!")
 
         if sala == 1: 
             msg = conexao1.recv(1024)
@@ -500,6 +495,11 @@ def main():
             elif msg.decode() == "x":
                 servidor_distribuido1.close()
                 break
+        if alarme == 1:
+            if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
+                ## INTEGRAR COM O SERVIDOR CENTRAL
+                GPIO.output(AL_BZ, GPIO.HIGH)
+                print("Sirene ligada!")
 
 if __name__ == "__main__":
     main()
