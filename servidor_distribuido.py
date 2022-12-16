@@ -109,7 +109,7 @@ def configuracao():
         DHT22 = data["sensor_temperatura"][0]["gpio"]
     f.close()
 
-    # Configuração dos pinos GPIOs (SAIDA/ENTRADA)
+    # Configuracao dos pinos GPIOs (SAIDA/ENTRADA)
 
     GPIO.setup(L_01, GPIO.OUT)
     GPIO.setup(L_02, GPIO.OUT)
@@ -127,7 +127,7 @@ def configuracao():
     # ------------------------------------------------------------------------------------
 
 
-# Configuração dos pinos GPIOs (DETECÇÃO DE EVENTOS)
+# Configuracao dos pinos GPIOs (DETECÇÃO DE EVENTOS)
     GPIO.add_event_detect(SJan, GPIO.BOTH)
     GPIO.add_event_detect(SPor, GPIO.BOTH)
     GPIO.add_event_detect(SPres, GPIO.BOTH)
