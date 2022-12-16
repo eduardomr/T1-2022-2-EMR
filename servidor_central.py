@@ -280,8 +280,6 @@ def main():
     thread2.start()
     menu_principal()
 
-    thread1.join()
-    thread2.join()
 
 
 
