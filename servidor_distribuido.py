@@ -496,8 +496,7 @@ def main():
                 servidor_distribuido1.close()
                 break
         if alarme == 1:
-            if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
-                ## INTEGRAR COM O SERVIDOR CENTRAL
+            if GPIO.input(SPres, GPIO.HIGH)==1  or GPIO.input(SPor, GPIO.HIGH) ==1 or GPIO.input(SJan)==1 :
                 GPIO.output(AL_BZ, GPIO.HIGH)
                 print("Sirene ligada!")
 
