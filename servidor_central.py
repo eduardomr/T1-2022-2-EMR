@@ -217,8 +217,7 @@ def menu_principal():
     print("1 - Controlar Sala 1")
     print("2 - Controlar Sala 2")
     print("3 - Controlar salas em conjunto ")
-    print("4 - Monitorar Entrada e Saida de Pessoas")
-    print("5 - Sair do sistema")
+    print("4 - Sair do sistema")
 
     opcao = int(input())
     if opcao == 1:
@@ -228,9 +227,6 @@ def menu_principal():
     elif opcao == 3:
         menu_salas12()
     elif opcao == 4:
-        menu_principal()
-       # monitora_pessoas()
-    elif opcao == 5:
         print("Saindo do sistema...")
         servidor_central1.close()
         servidor_central2.close()
