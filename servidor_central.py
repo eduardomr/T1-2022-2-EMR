@@ -222,8 +222,8 @@ def menu_principal():
         menu_sala2()
     elif opcao == 3:
         menu_salas12()
-    elif opcao == 4:
-        monitora_pessoas()
+    #elif opcao == 4:
+       # monitora_pessoas()
         
 
 
