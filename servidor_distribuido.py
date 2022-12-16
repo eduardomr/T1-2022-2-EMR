@@ -291,7 +291,7 @@ def main():
             if not msg:
                 break
             print("recebido:", msg.decode())
-            conexao2.send(msg)
+            conexao1.send(msg)
 
             if msg.decode() == "L01":
                 ligaLuz01()
@@ -327,7 +327,7 @@ def main():
             if not msg:
                 break
             print("recebido:", msg.decode())
-            conexao1.send(msg)
+            conexao2.send(msg)
 
             if msg.decode() == "L01":
                 ligaLuz01()
