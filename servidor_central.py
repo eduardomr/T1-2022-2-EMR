@@ -246,32 +246,15 @@ def escuta_sala2():
 
 def monitora_pessoas():
     global pessoas_sala1
-    global pessoas_sala2
-    global pessoas
     global conexao1
-    global conexao2
 
     while True:
-        print("Pessoas na sala 1: ", pessoas_sala1)
-        print("Pessoas na sala 2: ", pessoas_sala2)
-        print("Pessoas no predio: ", pessoas)
-        print("Aguardando atualização...")
+        print("Pessoas na sala 1: ")
+    
         msg = conexao1.recv(1024)
         msg = msg.decode("utf8")
-        if msg == "ENTROU":
-            pessoas_sala1 += 1
-            pessoas += 1
-        elif msg == "SAIU":
-            pessoas_sala1 -= 1
-            pessoas -= 1
-        msg2 = conexao2.recv(1024)
-        msg2 = msg.decode("utf8")
-        if msg2 == "ENTROU":
-            pessoas_sala2 += 1
-            pessoas += 1
-        elif msg2 == "SAIU":
-            pessoas_sala2 -= 1
-            pessoas -= 1
+        print(msg)
+        
 
 def main():
     global pessoas
@@ -281,9 +264,8 @@ def main():
     pessoas_sala1 = 0
     pessoas_sala2 = 0
     configura()
+    escuta_sala1()
     print("CONFIGUROU")
-    threading.Thread(target=escuta_sala1).start()
-    threading.Thread(target=escuta_sala2).start()
     menu_principal()
 
 

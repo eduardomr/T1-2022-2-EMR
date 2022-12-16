@@ -267,17 +267,17 @@ def contadorPessoas():
     if sala == 1:
         if GPIO.event_detected(SC_IN):
             pessoas += 1
-            servidor_distribuido1.send(bytes("ENTROU","utf8"))
+            servidor_distribuido1.send(bytes(pessoas,"utf8"))
         elif GPIO.event_detected(SC_OUT):
             pessoas+= -1
-            servidor_distribuido1.send(bytes("SAIU","utf8"))
+            servidor_distribuido1.send(bytes(pessoas,"utf8"))
     elif sala == 2:
         if GPIO.event_detected(SC_IN):
             pessoas += 1
-            servidor_distribuido2.send(bytes("ENTROU","utf8"))
+            servidor_distribuido2.send(bytes(pessoas,"utf8"))
         elif GPIO.event_detected(SC_OUT):
             pessoas+= -1
-            servidor_distribuido2.send(bytes("SAIU","utf8"))
+            servidor_distribuido2.send(bytes(pessoas,"utf8"))
         
 
 # ------------------------------------------------------------------------------------
