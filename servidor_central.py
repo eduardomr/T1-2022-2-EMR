@@ -42,6 +42,7 @@ def menu_sala1():
     print("9 - Desligar todas as lâmpadas da sala")
     print("10 - Ligar todas as cargas da sala")
     print("11 - Desligar todas as cargas da sala")
+    print("12 - Voltar ao menu principal")
     opt = int(input())
     if opt == 1:
         servidor_central1.send(bytes("L01","utf8"))
@@ -76,6 +77,8 @@ def menu_sala1():
     elif opt == 11:
         servidor_central1.send(bytes("DG","utf8"))
         menu_sala1()
+    elif opt == 12:
+        menu_principal()
     else:
         print("Opção inválida!")
         menu_sala1()
