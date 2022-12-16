@@ -45,7 +45,7 @@ def escuta2():
     servidor_distribuido2.listen()
     global conexao2
     global docliente2
-    conexao2, docliente2 = servidor_distribuido.accept()
+    conexao2, docliente2 = servidor_distribuido2.accept()
 
 def configura_envio2():
     global servidor_distribuido_envia2
