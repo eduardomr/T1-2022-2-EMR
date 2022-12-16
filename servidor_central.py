@@ -245,6 +245,8 @@ def escuta_sala2():
     conexao2, docliente2 = servidor_distribuido2.accept()
 
 def monitora_pessoas():
+    escuta_sala1()
+    escuta_sala2()
     global pessoas_sala1
     global pessoas_sala2
     global pessoas
@@ -282,16 +284,8 @@ def main():
     pessoas_sala2 = 0
     configura()
     print("CONFIGUROU")
-    thread1 = threading.Thread(target=escuta_sala1)
-    thread2 = threading.Thread(target=escuta_sala2)
     print("ESCUtOU")
     menu_principal()
-
-    thread1.start()
-    thread2.start()
-
-    thread1.join()
-    thread2.join()
 
 
 
