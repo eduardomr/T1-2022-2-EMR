@@ -2,6 +2,9 @@
 import RPi.GPIO as GPIO
 from socket import *
 import json
+import time
+import datetime
+import csv
 
 
 global sala
@@ -246,11 +249,30 @@ def desligaLuzes():
 
 # Sistema de alarme
 def ligarAlarme():
-    ## ANTES DE LIGAR, VERIFICAR SE HÁ ALGUM SENSOR ATIVADO
+    if GPIO.input(SJan)==1:
+        print("Janela aberta!")
+        print("Não é possível ligar o sistema de alarme")	
+    elif GPIO.input(SPor)==1:
+        print("Porta aberta!")
+        print("Não é possível ligar o sistema de alarme")
+    elif GPIO.input(SPres)==1:
+        print("Presença detectada!")
+        print("Não é possível ligar o sistema de alarme")
+    else: 
+        if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
+            ## INTEGRAR COM O SERVIDOR CENTRAL
+            GPIO.output(AL_BZ, GPIO.HIGH)
+            print("Sirene ligada!")
+
+def desligarAlarme():
+    print("Sistema de larme desligado")
     if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
-        ## INTEGRAR COM O SERVIDOR CENTRAL
-        GPIO.output(AL_BZ, GPIO.HIGH)
-        print("Sirene ligada!")
+        ligaLuzes()
+        time.sleep(15)
+        desligaLuzes()
+        
+
+
 
 def monitoraFumaca():
     if GPIO.event_detected(SFum):
@@ -285,6 +307,7 @@ def main():
     global sala
     sala = int(input("Esta sala usa configuração 1 ou 2?"))
     configuracao()
+    desligarAlarme()
     while True:
         if sala == 1: 
             msg = conexao1.recv(1024)
@@ -295,8 +318,18 @@ def main():
 
             if msg.decode() == "L01":
                 ligaLuz01()
+                data = datetime.datetime.now()
+                f = open('/logs/log_sala1.csv', 'w', newline='', encoding='utf-8')
+                writer = csv.writer(f)
+                writer.writerow([data, 'Luz 01 ligada'])
+                writer.close()
             elif msg.decode() == "DL01":
                 desligaLuz01()
+                data = datetime.datetime.now()
+                f = open('/logs/log_sala1.csv', 'w', newline='', encoding='utf-8')
+                writer = csv.writer(f)
+                writer.writerow([data, 'Luz 02 desligada'])
+                writer.close()
             elif msg.decode() == "L02":
                 ligaLuz02()
             elif msg.decode() == "DL02":
@@ -311,6 +344,8 @@ def main():
                 desligaPR()
             elif msg.decode() == "AL":
                 ligarAlarme()
+            elif msg.decode() == "DAL":
+                desligarAlarme()
             elif msg.decode() == "L12":
                 ligaLuzes()
             elif msg.decode() == "D12":
@@ -347,6 +382,8 @@ def main():
                 desligaPR()
             elif msg.decode() == "AL":
                 ligarAlarme()
+            elif msg.decode() == "DAL":
+                desligarAlarme()
             elif msg.decode() == "L12":
                 ligaLuzes()
             elif msg.decode() == "D12":

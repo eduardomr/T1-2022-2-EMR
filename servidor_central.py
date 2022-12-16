@@ -94,10 +94,11 @@ def menu_salas12():
     print("5 - Ligar Ar Condicionado")
     print("6 - Desligar Ar Condicionado")
     print("7 - Ligar Sistema de Alarme")
-    print("8 - Ligar todas as lâmpadas da salas")
-    print("9 - Desligar todas as lâmpadas das salas")
-    print("10 - Ligar todas as cargas das salas")
-    print("11 - Voltar ao menu principal")
+    print("8 - Desligar Sistema de Alarme")
+    print("9 - Ligar todas as lâmpadas da salas")
+    print("10 - Desligar todas as lâmpadas das salas")
+    print("11 - Ligar todas as cargas das salas")
+    print("12 - Voltar ao menu principal")
     opt = int(input())
     if opt == 1:
         servidor_central1.send(bytes("L01","utf8"))
@@ -128,18 +129,22 @@ def menu_salas12():
         servidor_central2.send(bytes("AL","utf8"))
         menu_salas12()
     elif opt == 8:
+        servidor_central1.send(bytes("DAL","utf8"))
+        servidor_central2.send(bytes("DAL","utf8"))
+        menu_salas12()
+    elif opt == 9:
         servidor_central1.send(bytes("L12","utf8"))
         servidor_central2.send(bytes("L12","utf8"))
         menu_salas12()
-    elif opt == 9:
+    elif opt == 10:
         servidor_central1.send(bytes("D12","utf8"))
         servidor_central2.send(bytes("D12","utf8"))
         menu_salas12()
-    elif opt == 10:
+    elif opt == 11:
         servidor_central1.send(bytes("LG","utf8"))
         servidor_central2.send(bytes("LG","utf8"))
         menu_salas12()
-    elif opt == 11:
+    elif opt == 12:
         menu_principal()
 
 def menu_sala2():
@@ -153,10 +158,12 @@ def menu_sala2():
     print("5 - Ligar Ar Condicionado")
     print("6 - Desligar Ar Condicionado")
     print("7 - Ligar Sistema de Alarme")
-    print("8 - Ligar todas as lâmpadas da sala")
-    print("9 - Desligar todas as lâmpadas da sala")
-    print("10 - Ligar todas as cargas da sala")
-    print("10 - Desligar todas as cargas da sala")
+    print("8 - Desigar Sistema de Alarme")
+    print("9 - Ligar todas as lâmpadas da sala")
+    print("10 - Desligar todas as lâmpadas da sala")
+    print("11 - Ligar todas as cargas da sala")
+    print("12 - Desligar todas as cargas da sala")
+    print("13 - Voltar ao menu principal")
     opt = int(input())
     if opt == 1:
         servidor_central2.send(bytes("L01","utf8"))
@@ -178,19 +185,23 @@ def menu_sala2():
         menu_sala2()
     elif opt == 7:
         servidor_central2.send(bytes("AL","utf8"))
-        menu_sala2()
     elif opt == 8:
-        servidor_central2.send(bytes("L12","utf8"))
+        servidor_central2.send(bytes("DAL","utf8"))
         menu_sala2()
     elif opt == 9:
-        servidor_central2.send(bytes("D12","utf8"))
+        servidor_central2.send(bytes("L12","utf8"))
         menu_sala2()
     elif opt == 10:
+        servidor_central2.send(bytes("D12","utf8"))
+        menu_sala2()
+    elif opt == 11:
         servidor_central2.send(bytes("LG","utf8"))
         menu_sala2()
-    elif opt == 7:
+    elif opt == 12:
         servidor_central2.send(bytes("DG","utf8"))
         menu_sala2()
+    elif opt == 13:
+        menu_principal()
     else:
         print("Opção inválida!")
         menu_sala2()
@@ -215,56 +226,9 @@ def menu_principal():
         monitora_pessoas()
         
 
-def escuta_sala1():
-    with open('configuracao_sala_01.json', 'r') as f:
-        data = json.load(f)
-        host = data["ip_servidor_central"]
-        port = data["porta_servidor_central"]
-    f.close()
-    global servidor_central_escuta1
-    servidor_central_escuta1 = socket(AF_INET, SOCK_STREAM)
-    servidor_central_escuta1.bind((host, port))
-    servidor_central_escuta1.listen()
-    global conexao1
-    global docliente1
-    conexao1, docliente1 = servidor_central_escuta1.accept()
-
-
-def escuta_sala2():
-    with open('configuracao_sala_02.json', 'r') as f:
-        data = json.load(f)
-        host = data["ip_servidor_central"]
-        port = data["porta_servidor_central"]
-    f.close()
-    global servidor_central_escuta2
-    servidor_central_escuta2 = socket(AF_INET, SOCK_STREAM)
-    servidor_central_escuta2.bind((host, port))
-    servidor_central_escuta2.listen()
-    global conexao2
-    global docliente2
-    conexao2, docliente2 = servidor_central_escuta1.accept()
-
-def monitora_pessoas():
-    global pessoas_sala1
-    global conexao1
-
-    while True:
-        print("Pessoas na sala 1: ")
-    
-        msg = conexao1.recv(1024)
-        msg = msg.decode("utf8")
-        print(msg)
-        
 
 def main():
-    global pessoas
-    pessoas = 0
-    global pessoas_sala1
-    global pessoas_sala2
-    pessoas_sala1 = 0
-    pessoas_sala2 = 0
     configura()
-    escuta_sala1()
     print("CONFIGUROU")
     menu_principal()
 
