@@ -324,6 +324,7 @@ def main():
     sala = int(input("Esta sala usa configuração 1 ou 2?"))
     configuracao()
     desligarAlarme()
+    GPIO.output(AL_BZ, GPIO.LOW)
     while True:
         if sala == 1: 
             msg = conexao1.recv(1024)
