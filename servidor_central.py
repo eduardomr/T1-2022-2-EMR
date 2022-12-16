@@ -286,9 +286,9 @@ def main():
     thread2 = threading.Thread(target=escuta_sala2)
     print("CONFIGUROU ESCUTA2")
 
-
-    thread1.start()
     thread2.start()
+    thread1.start()
+   
     menu_principal()
 
 
