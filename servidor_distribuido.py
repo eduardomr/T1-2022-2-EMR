@@ -5,6 +5,14 @@ import json
 import time
 import datetime
 import csv
+import Adafruit_DHT
+
+def monitora_dht():
+    DHT_SENSOR = Adafruit_DHT.DHT22
+    while True:
+        humidity, temperature = Adafruit_DHT.read_retry(DHT_SENSOR, DHT22)
+
+    return humidity, temperature
 
 
 global sala
