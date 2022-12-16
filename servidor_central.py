@@ -281,14 +281,6 @@ def main():
     pessoas_sala2 = 0
     configura()
     print("CONFIGUROU")
-    thread1 = threading.Thread(target=escuta_sala1)
-    print("CONFIGUROU ESCUTA1")
-    thread2 = threading.Thread(target=escuta_sala2)
-    print("CONFIGUROU ESCUTA2")
-
-    thread2.start()
-    thread1.start()
-   
     menu_principal()
 
 
