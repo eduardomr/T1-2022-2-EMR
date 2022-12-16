@@ -174,7 +174,7 @@ def menu_sala2():
         menu_sala2()
     elif opt == 2:
         servidor_central2.send(bytes("DL01","utf8"))
-        menu_sala1()
+        menu_sala2()
     elif opt == 3:
         servidor_central2.send(bytes("L02","utf8"))
         menu_sala2()
