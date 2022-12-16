@@ -496,7 +496,7 @@ def main():
                 servidor_distribuido1.close()
                 break
         if alarme == 1:
-            if GPIO.input(SPres, GPIO.HIGH)==1  or GPIO.input(SPor, GPIO.HIGH) ==1 or GPIO.input(SJan)==1 :
+            if GPIO.input(SPres)==1  or GPIO.input(SPor) ==1 or GPIO.input(SJan)==1 :
                 GPIO.output(AL_BZ, GPIO.HIGH)
                 print("Sirene ligada!")
 
