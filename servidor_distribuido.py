@@ -2,15 +2,32 @@ import RPi.GPIO as GPIO
 from socket import *
 import json
 
+# Configuração do Servidor Distribuido (Escuta) ----------------------------------------------
+def escuta():
+    with open('configuracao_sala_01.json', 'r') as f:
+        data = json.load(f)
+        host = data["ip_servidor_central"]
+        port = data["porta_servidor_distribuido"]
+    f.close()
+    global servidor_distribuido
+    servidor_distribuido = socket(AF_INET, SOCK_STREAM)
+    servidor_distribuido.bind((host, port))
+    servidor_distribuido.listen()
+    global conexao
+    global docliente
+    conexao, docliente = servidor_distribuido.accept()
 
-host = ''
-port = 10561
-servidor_distribuido = socket(AF_INET, SOCK_STREAM)
-servidor_distribuido.bind((host, port))
-servidor_distribuido.listen()
-conexao, docliente = servidor_distribuido.accept()
-
-
+def configura_envio():
+    global servidor_distribuido
+    with open('configuracao_sala_01.json', 'r') as f:
+        data = json.load(f)
+        ip_central = data["ip_servidor_central"]
+        porta_central = data["porta_servidor_central"]
+    # Closing file
+    f.close()
+    servidor_distribuido = socket(AF_INET, SOCK_STREAM)
+    destino = (ip_central, porta_central)
+    servidor_distribuido.connect(destino)
 
 GPIO.setmode(GPIO.BCM)
 
@@ -30,6 +47,7 @@ SC_OUT = -1
 DHT22 = -1
 # ------------------------------------------------------------------------------------
 def configuracao():
+    escuta()
     global L_01
     global L_02
     global AC
@@ -153,7 +171,27 @@ def desligaPR():
     GPIO.output(PR, GPIO.LOW)
     print("Projetor desligado")
 # ------------------------------------------------------------------------------------
+#Funções de agrupamento de cargas
 
+def ligaCargas():
+    ligaLuz01()
+    ligaLuz02()
+    ligaAC()
+    ligaPR()
+
+def desligaCargas():
+    desligaLuz01()
+    desligaLuz02()
+    desligaAC()
+    desligaPR()
+
+def ligaLuzes():
+    ligaLuz01()
+    ligaLuz02()
+
+def desligaLuzes():
+    desligaLuz01()
+    desligaLuz02()
 
 # Sistema de alarme
 def ligarAlarme():
@@ -172,20 +210,21 @@ def monitoraFumaca():
 # ------------------------------------------------------------------------------------
          
 # CONTADOR DE PESSOAS
-pessoas = 0
 def contadorPessoas():
     global pessoas
     if GPIO.event_detected(SC_IN):
-        pessoas = pessoas + 1
-        print(pessoas)
+        pessoas += 1
+        servidor_distribuido.send(bytes("ENTROU","utf8"))
     elif GPIO.event_detected(SC_OUT):
-        pessoas = pessoas -1
-        print(pessoas)
+        pessoas+= -1
+        servidor_distribuido.send(bytes("SAIU","utf8"))
+        
 
 # ------------------------------------------------------------------------------------
 def main():
     configuracao()
     while True:
+        contadorPessoas()
         msg = conexao.recv()
         if not msg:
             break
@@ -208,6 +247,16 @@ def main():
             ligaPR()
         elif msg.decode() == "DPR":
             desligaPR()
+        elif msg.decode() == "AL":
+            ligarAlarme()
+        elif msg.decode() == "L12":
+            ligaLuzes()
+        elif msg.decode() == "D12":
+            desligaLuzes()
+        elif msg.decode() == "LG":
+            ligaCargas()
+        elif msg.decode() == "DG":
+            desligaCargas()
         elif msg.decode() == "x":
             servidor_distribuido.close()
             break
