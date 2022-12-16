@@ -251,14 +251,30 @@ def desligaLuzes():
 def ligarAlarme():
     if GPIO.input(SJan)==1:
         print("Janela aberta!")
-        print("Não é possível ligar o sistema de alarme")	
+        print("Não é possível ligar o sistema de alarme")
+        data = datetime.datetime.now()
+        with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, janela aberta!'])	
     elif GPIO.input(SPor)==1:
         print("Porta aberta!")
         print("Não é possível ligar o sistema de alarme")
+        data = datetime.datetime.now()
+        with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, porta aberta!'])	
     elif GPIO.input(SPres)==1:
         print("Presença detectada!")
         print("Não é possível ligar o sistema de alarme")
-    else: 
+        data = datetime.datetime.now()
+        with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, presença detectada!'])	
+    else:
+        data = datetime.datetime.now()
+        with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                writer.writerow([data, 'alarme ligado'])	
         if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
             ## INTEGRAR COM O SERVIDOR CENTRAL
             GPIO.output(AL_BZ, GPIO.HIGH)
@@ -330,28 +346,72 @@ def main():
                     writer.writerow([data, 'Luz 01 desligada'])
             elif msg.decode() == "L02":
                 ligaLuz02()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Luz 02 ligada'])
             elif msg.decode() == "DL02":
                 desligaLuz02()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Luz 02 desligada'])
             elif msg.decode() == "AC":
                 ligaAC()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'AC ligado'])
             elif msg.decode() == "DAC":
                 desligaAC()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'AC desligado'])
             elif msg.decode() == "PR":
                 ligaPR()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Projetor ligado'])
             elif msg.decode() == "DPR":
                 desligaPR()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Projetor desligado'])
             elif msg.decode() == "AL":
                 ligarAlarme()
             elif msg.decode() == "DAL":
                 desligarAlarme()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Alarme desligado'])
             elif msg.decode() == "L12":
                 ligaLuzes()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Luzes ligadas'])
             elif msg.decode() == "D12":
                 desligaLuzes()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Luzes desligadas'])
             elif msg.decode() == "LG":
                 ligaCargas()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Cargas ligadas'])
             elif msg.decode() == "DG":
                 desligaCargas()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Cargas desligadas'])
             elif msg.decode() == "x":
                 servidor_distribuido1.close()
                 break
@@ -364,34 +424,86 @@ def main():
 
             if msg.decode() == "L01":
                 ligaLuz01()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala2.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Luz 01 ligada'])
             elif msg.decode() == "DL01":
                 desligaLuz01()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala2.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Luz 01 desligada'])
             elif msg.decode() == "L02":
                 ligaLuz02()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala2.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Luz 02 ligada'])
             elif msg.decode() == "DL02":
                 desligaLuz02()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala2.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Luz 02 desligada'])
             elif msg.decode() == "AC":
                 ligaAC()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala2.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'AC ligado'])
             elif msg.decode() == "DAC":
                 desligaAC()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala2.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'AC desligado'])
             elif msg.decode() == "PR":
                 ligaPR()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala2.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Projetor ligado'])
             elif msg.decode() == "DPR":
                 desligaPR()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala2.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Projetor desligado'])
             elif msg.decode() == "AL":
                 ligarAlarme()
             elif msg.decode() == "DAL":
                 desligarAlarme()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Alarme desligado'])
             elif msg.decode() == "L12":
                 ligaLuzes()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala2.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Luzes ligadas'])
             elif msg.decode() == "D12":
                 desligaLuzes()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala2.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Luzes desligadas'])
             elif msg.decode() == "LG":
                 ligaCargas()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala2.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Cargas ligadas'])
             elif msg.decode() == "DG":
                 desligaCargas()
+                data = datetime.datetime.now()
+                with open('./logs/log_sala2.csv', 'a+', newline='', encoding='utf-8') as csvfile:
+                    writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                    writer.writerow([data, 'Cargas desligadas'])
             elif msg.decode() == "x":
-                servidor_distribuido2.close()
+                servidor_distribuido1.close()
                 break
 
 if __name__ == "__main__":
