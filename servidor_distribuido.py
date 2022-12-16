@@ -259,6 +259,7 @@ def ligarAlarme():
                 writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, verifique os sensores'])
         alarme = 0
     else:
+        print("Sistema de alarme ligado")
         data = datetime.datetime.now()
         with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
                 writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -405,6 +406,8 @@ def main():
             elif msg.decode() == "x":
                 servidor_distribuido1.close()
                 break
+        
+        
         elif sala == 2:
             msg = conexao2.recv(1024)
             if not msg:
