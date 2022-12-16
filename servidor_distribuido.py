@@ -245,12 +245,21 @@ def monitoraFumaca():
 # CONTADOR DE PESSOAS
 def contadorPessoas():
     global pessoas
-    if GPIO.event_detected(SC_IN):
-        pessoas += 1
-        servidor_distribuido.send(bytes("ENTROU","utf8"))
-    elif GPIO.event_detected(SC_OUT):
-        pessoas+= -1
-        servidor_distribuido.send(bytes("SAIU","utf8"))
+    global sala
+    if sala == 1:
+        if GPIO.event_detected(SC_IN):
+            pessoas += 1
+            servidor_distribuido1.send(bytes("ENTROU","utf8"))
+        elif GPIO.event_detected(SC_OUT):
+            pessoas+= -1
+            servidor_distribuido1.send(bytes("SAIU","utf8"))
+    elif sala == 2:
+        if GPIO.event_detected(SC_IN):
+            pessoas += 1
+            servidor_distribuido2.send(bytes("ENTROU","utf8"))
+        elif GPIO.event_detected(SC_OUT):
+            pessoas+= -1
+            servidor_distribuido2.send(bytes("SAIU","utf8"))
         
 
 # ------------------------------------------------------------------------------------
@@ -259,41 +268,78 @@ def main():
     sala = int(input("Esta sala usa configuração 1 ou 2?"))
     configuracao()
     while True:
-        msg = conexao.recv(1024)
-        if not msg:
-            break
-        print("recebido:", msg.decode())
-        conexao.send(msg)
+        if sala == 1: 
+            msg = conexao1.recv(1024)
+            if not msg:
+                break
+            print("recebido:", msg.decode())
+            conexao2.send(msg)
 
-        if msg.decode() == "L01":
-            ligaLuz01()
-        elif msg.decode() == "DL01":
-            desligaLuz01()
-        elif msg.decode() == "L02":
-            ligaLuz02()
-        elif msg.decode() == "DL02":
-            desligaLuz02()
-        elif msg.decode() == "AC":
-            ligaAC()
-        elif msg.decode() == "DAC":
-            desligaAC()
-        elif msg.decode() == "PR":
-            ligaPR()
-        elif msg.decode() == "DPR":
-            desligaPR()
-        elif msg.decode() == "AL":
-            ligarAlarme()
-        elif msg.decode() == "L12":
-            ligaLuzes()
-        elif msg.decode() == "D12":
-            desligaLuzes()
-        elif msg.decode() == "LG":
-            ligaCargas()
-        elif msg.decode() == "DG":
-            desligaCargas()
-        elif msg.decode() == "x":
-            servidor_distribuido.close()
-            break
+            if msg.decode() == "L01":
+                ligaLuz01()
+            elif msg.decode() == "DL01":
+                desligaLuz01()
+            elif msg.decode() == "L02":
+                ligaLuz02()
+            elif msg.decode() == "DL02":
+                desligaLuz02()
+            elif msg.decode() == "AC":
+                ligaAC()
+            elif msg.decode() == "DAC":
+                desligaAC()
+            elif msg.decode() == "PR":
+                ligaPR()
+            elif msg.decode() == "DPR":
+                desligaPR()
+            elif msg.decode() == "AL":
+                ligarAlarme()
+            elif msg.decode() == "L12":
+                ligaLuzes()
+            elif msg.decode() == "D12":
+                desligaLuzes()
+            elif msg.decode() == "LG":
+                ligaCargas()
+            elif msg.decode() == "DG":
+                desligaCargas()
+            elif msg.decode() == "x":
+                servidor_distribuido1.close()
+                break
+        elif sala == 2:
+            msg = conexao2.recv(1024)
+            if not msg:
+                break
+            print("recebido:", msg.decode())
+            conexao1.send(msg)
+
+            if msg.decode() == "L01":
+                ligaLuz01()
+            elif msg.decode() == "DL01":
+                desligaLuz01()
+            elif msg.decode() == "L02":
+                ligaLuz02()
+            elif msg.decode() == "DL02":
+                desligaLuz02()
+            elif msg.decode() == "AC":
+                ligaAC()
+            elif msg.decode() == "DAC":
+                desligaAC()
+            elif msg.decode() == "PR":
+                ligaPR()
+            elif msg.decode() == "DPR":
+                desligaPR()
+            elif msg.decode() == "AL":
+                ligarAlarme()
+            elif msg.decode() == "L12":
+                ligaLuzes()
+            elif msg.decode() == "D12":
+                desligaLuzes()
+            elif msg.decode() == "LG":
+                ligaCargas()
+            elif msg.decode() == "DG":
+                desligaCargas()
+            elif msg.decode() == "x":
+                servidor_distribuido2.close()
+                break
 
 if __name__ == "__main__":
     main()
