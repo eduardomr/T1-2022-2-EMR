@@ -207,7 +207,7 @@ def menu_principal():
 def escuta_sala1():
     with open('configuracao_sala_01.json', 'r') as f:
         data = json.load(f)
-        host = data["ip_servidor_distribuido"]
+        host = ''
         port = data["porta_servidor_central"]
     f.close()
 
@@ -222,7 +222,7 @@ def escuta_sala1():
 def escuta_sala2():
     with open('configuracao_sala_02.json', 'r') as f:
         data = json.load(f)
-        host = data["ip_servidor_distribuido"]
+        host = ''
         port = data["porta_servidor_central"]
     f.close()
 
@@ -273,7 +273,7 @@ def main():
     escuta_sala1()
     escuta_sala2()
     menu_principal()
-    
+
 
 
 if __name__ == "__main__":
