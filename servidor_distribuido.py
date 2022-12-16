@@ -2,8 +2,11 @@ import RPi.GPIO as GPIO
 from socket import *
 import json
 
+
+global sala
+
 # Configuração do Servidor Distribuido (Escuta) ----------------------------------------------
-def escuta():
+def escuta1():
     with open('configuracao_sala_01.json', 'r') as f:
         data = json.load(f)
         host = data["ip_servidor_central"]
@@ -17,9 +20,35 @@ def escuta():
     global docliente
     conexao, docliente = servidor_distribuido.accept()
 
-def configura_envio():
+def configura_envio1():
     global servidor_distribuido
     with open('configuracao_sala_01.json', 'r') as f:
+        data = json.load(f)
+        ip_central = data["ip_servidor_central"]
+        porta_central = data["porta_servidor_central"]
+    # Closing file
+    f.close()
+    servidor_distribuido = socket(AF_INET, SOCK_STREAM)
+    destino = (ip_central, porta_central)
+    servidor_distribuido.connect(destino)
+
+def escuta2():
+    with open('configuracao_sala_02.json', 'r') as f:
+        data = json.load(f)
+        host = data["ip_servidor_central"]
+        port = data["porta_servidor_distribuido"]
+    f.close()
+    global servidor_distribuido
+    servidor_distribuido = socket(AF_INET, SOCK_STREAM)
+    servidor_distribuido.bind((host, port))
+    servidor_distribuido.listen()
+    global conexao
+    global docliente
+    conexao, docliente = servidor_distribuido.accept()
+
+def configura_envio2():
+    global servidor_distribuido
+    with open('configuracao_sala_02.json', 'r') as f:
         data = json.load(f)
         ip_central = data["ip_servidor_central"]
         porta_central = data["porta_servidor_central"]
@@ -47,7 +76,10 @@ SC_OUT = -1
 DHT22 = -1
 # ------------------------------------------------------------------------------------
 def configuracao():
-    escuta()
+    if sala ==1:
+        escuta1()
+    else :
+        escuta2()
     global L_01
     global L_02
     global AC
@@ -222,6 +254,8 @@ def contadorPessoas():
 
 # ------------------------------------------------------------------------------------
 def main():
+    global sala
+    sala = int(input("Esta sala usa configuração 1 ou 2?"))
     configuracao()
     while True:
         msg = conexao.recv(1024)
