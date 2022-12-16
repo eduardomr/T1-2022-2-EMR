@@ -270,8 +270,8 @@ def main():
     pessoas_sala1 = 0
     pessoas_sala2 = 0
     configura()
-    escuta_sala1()
-    escuta_sala2()
+    #escuta_sala1()
+    #escuta_sala2()
     menu_principal()
 
 
