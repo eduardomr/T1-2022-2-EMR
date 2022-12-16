@@ -218,39 +218,37 @@ def menu_principal():
 def escuta_sala1():
     with open('configuracao_sala_01.json', 'r') as f:
         data = json.load(f)
-        host = ''
+        host = data["ip_servidor_central"]
         port = data["porta_servidor_central"]
     f.close()
-
-    servidor_distribuido = socket(AF_INET, SOCK_STREAM)
-    servidor_distribuido.bind((host, port))
-    servidor_distribuido.listen()
-    global conexao
-    global docliente
-    conexao, docliente = servidor_distribuido.accept()
+    global servidor_central_escuta1
+    servidor_central_escuta1 = socket(AF_INET, SOCK_STREAM)
+    servidor_central_escuta1.bind((host, port))
+    servidor_central_escuta1.listen()
+    global conexao1
+    global docliente1
+    conexao1, docliente1 = servidor_central_escuta1.accept()
 
 
 def escuta_sala2():
     with open('configuracao_sala_02.json', 'r') as f:
         data = json.load(f)
-        host = ''
+        host = data["ip_servidor_central"]
         port = data["porta_servidor_central"]
     f.close()
-
-    servidor_distribuido2 = socket(AF_INET, SOCK_STREAM)
-    servidor_distribuido2.bind((host, port))
-    servidor_distribuido2.listen()
+    global servidor_central_escuta2
+    servidor_central_escuta2 = socket(AF_INET, SOCK_STREAM)
+    servidor_central_escuta2.bind((host, port))
+    servidor_central_escuta2.listen()
     global conexao2
     global docliente2
-    conexao2, docliente2 = servidor_distribuido2.accept()
+    conexao2, docliente2 = servidor_central_escuta1.accept()
 
 def monitora_pessoas():
-    escuta_sala1()
-    escuta_sala2()
     global pessoas_sala1
     global pessoas_sala2
     global pessoas
-    global conexao
+    global conexao1
     global conexao2
 
     while True:
@@ -258,7 +256,7 @@ def monitora_pessoas():
         print("Pessoas na sala 2: ", pessoas_sala2)
         print("Pessoas no predio: ", pessoas)
         print("Aguardando atualização...")
-        msg = conexao.recv(1024)
+        msg = conexao1.recv(1024)
         msg = msg.decode("utf8")
         if msg == "ENTROU":
             pessoas_sala1 += 1
@@ -266,12 +264,12 @@ def monitora_pessoas():
         elif msg == "SAIU":
             pessoas_sala1 -= 1
             pessoas -= 1
-        msg = conexao2.recv(1024)
-        msg = msg.decode("utf8")
-        if msg == "ENTROU":
+        msg2 = conexao2.recv(1024)
+        msg2 = msg.decode("utf8")
+        if msg2 == "ENTROU":
             pessoas_sala2 += 1
             pessoas += 1
-        elif msg == "SAIU":
+        elif msg2 == "SAIU":
             pessoas_sala2 -= 1
             pessoas -= 1
 
@@ -284,7 +282,8 @@ def main():
     pessoas_sala2 = 0
     configura()
     print("CONFIGUROU")
-    print("ESCUtOU")
+    threading.Thread(target=escuta_sala1).start()
+    threading.Thread(target=escuta_sala2).start()
     menu_principal()
 
 
