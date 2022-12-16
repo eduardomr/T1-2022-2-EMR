@@ -127,7 +127,7 @@ def configuracao():
     # ------------------------------------------------------------------------------------
 
 
-# Configuracao dos pinos GPIOs (DETECÇÃO DE EVENTOS)
+# Configuracao dos pinos GPIOs (DETECCAO DE EVENTOS)
     GPIO.add_event_detect(SJan, GPIO.BOTH)
     GPIO.add_event_detect(SPor, GPIO.BOTH)
     GPIO.add_event_detect(SPres, GPIO.BOTH)
