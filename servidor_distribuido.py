@@ -61,7 +61,7 @@ def configura_envio2():
 GPIO.setmode(GPIO.BCM)
 
 
-# Configuração das pinos GPIOs------------------------------------------------------
+# Configuracao das pinos GPIOs------------------------------------------------------
 L_01 = -1
 L_02 = -1
 AC = -1
@@ -137,7 +137,7 @@ def configuracao():
 # ------------------------------------------------------------------------------------
 
 
-# funções de leitura dos sensores
+# funcoes de leitura dos sensores
 def leituraSensorJan():
     if GPIO.event_detected(SJan):
         if GPIO.input(SJan)==1:
@@ -166,7 +166,7 @@ def leituraSensorPres():
 
 
 
-## Funções Ligar e desligar luzes
+## Funcoes Ligar e desligar luzes
 def ligaLuz01():
     GPIO.output(L_01, GPIO.HIGH)
     print("Luz 01 ligada")
@@ -186,7 +186,7 @@ def desligaLuz02():
 # ------------------------------------------------------------------------------------
 
 
-## funções ligar e desligar ar condicionado e projetor
+## funcoes ligar e desligar ar condicionado e projetor
 def ligaAC():
     GPIO.output(AC, GPIO.HIGH)
     print("Ar condicionado ligado")
@@ -203,7 +203,7 @@ def desligaPR():
     GPIO.output(PR, GPIO.LOW)
     print("Projetor desligado")
 # ------------------------------------------------------------------------------------
-#Funções de agrupamento de cargas
+#Funcoes de agrupamento de cargas
 
 def ligaCargas():
     ligaLuz01()
