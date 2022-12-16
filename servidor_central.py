@@ -282,6 +282,10 @@ def main():
     pessoas_sala2 = 0
     configura()
     print("CONFIGUROU")
+    escuta_sala1()
+    print("ESCUtOU")
+    escuta_sala2()
+    print("ESCUtOU")
     menu_principal()
 
 
