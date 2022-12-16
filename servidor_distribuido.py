@@ -5,7 +5,7 @@ import json
 
 global sala
 
-# Configuração do Servidor Distribuido (Escuta) ----------------------------------------------
+# Configuracao do Servidor Distribuido (Escuta) ----------------------------------------------
 def escuta1():
     with open('configuracao_sala_01.json', 'r') as f:
         data = json.load(f)
