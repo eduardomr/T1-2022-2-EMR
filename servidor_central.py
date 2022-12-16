@@ -270,11 +270,18 @@ def main():
     pessoas_sala2 = 0
     configura()
     print("CONFIGUROU")
-    escuta_sala1()
+    thread1 = threading.Thread(target=escuta_sala1)
     print("CONFIGUROU ESCUTA1")
-    escuta_sala2()
+    thread2 = threading.Thread(target=escuta_sala2)
     print("CONFIGUROU ESCUTA2")
+
+
+    thread1.start()
+    thread2.start()
     menu_principal()
+
+    thread1.join()
+    thread2.join()
 
 
 
