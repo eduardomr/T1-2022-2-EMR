@@ -36,7 +36,7 @@ def configura_envio1():
 def escuta2():
     with open('configuracao_sala_02.json', 'r') as f:
         data = json.load(f)
-        host = ''
+        host = data["ip_servidor_distribuido"]
         port = data["porta_servidor_distribuido"]
     f.close()
     global servidor_distribuido2
@@ -79,7 +79,7 @@ DHT22 = -1
 def configuracao():
     if sala ==1:
         escuta1()
-    else :
+    elif sala ==2 :
         escuta2()
     global L_01
     global L_02
