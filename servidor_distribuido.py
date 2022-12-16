@@ -255,7 +255,8 @@ def ligarAlarme():
         data = datetime.datetime.now()
         with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
                 writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, janela aberta!'])	
+                writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, janela aberta!'])
+        return
     elif GPIO.input(SPor)==1:
         print("Porta aberta!")
         print("Não é possível ligar o sistema de alarme")
@@ -263,13 +264,15 @@ def ligarAlarme():
         with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
                 writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
                 writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, porta aberta!'])	
+        return
     elif GPIO.input(SPres)==1:
         print("Presença detectada!")
         print("Não é possível ligar o sistema de alarme")
         data = datetime.datetime.now()
         with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:
                 writer = csv.writer(csvfile, delimiter=':' , quotechar='|', quoting=csv.QUOTE_MINIMAL)
-                writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, presença detectada!'])	
+                writer.writerow([data, 'Não foi possivel ligar o sistema de alarme, presença detectada!'])
+        return	
     else:
         data = datetime.datetime.now()
         with open('./logs/log_sala1.csv', 'a+', newline='', encoding='utf-8') as csvfile:

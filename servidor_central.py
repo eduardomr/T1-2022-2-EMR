@@ -39,11 +39,12 @@ def menu_sala1():
     print("5 - Ligar Ar Condicionado")
     print("6 - Desligar Ar Condicionado")
     print("7 - Ligar Sistema de Alarme")
-    print("8 - Ligar todas as lâmpadas da sala")
-    print("9 - Desligar todas as lâmpadas da sala")
-    print("10 - Ligar todas as cargas da sala")
-    print("11 - Desligar todas as cargas da sala")
-    print("12 - Voltar ao menu principal")
+    print("8 - Desligar Sistema de Alarme")
+    print("9 - Ligar todas as lâmpadas da sala")
+    print("10 - Desligar todas as lâmpadas da sala")
+    print("11 - Ligar todas as cargas da sala")
+    print("12 - Desligar todas as cargas da sala")
+    print("13 - Voltar ao menu principal")
     opt = int(input())
     if opt == 1:
         servidor_central1.send(bytes("L01","utf8"))
@@ -67,18 +68,21 @@ def menu_sala1():
         servidor_central1.send(bytes("AL","utf8"))
         menu_sala1()
     elif opt == 8:
-        servidor_central1.send(bytes("L12","utf8"))
+        servidor_central1.send(bytes("DAL","utf8"))
         menu_sala1()
     elif opt == 9:
-        servidor_central1.send(bytes("D12","utf8"))
+        servidor_central1.send(bytes("L12","utf8"))
         menu_sala1()
     elif opt == 10:
-        servidor_central1.send(bytes("LG","utf8"))
+        servidor_central1.send(bytes("D12","utf8"))
         menu_sala1()
     elif opt == 11:
-        servidor_central1.send(bytes("DG","utf8"))
+        servidor_central1.send(bytes("LG","utf8"))
         menu_sala1()
     elif opt == 12:
+        servidor_central1.send(bytes("DG","utf8"))
+        menu_sala1()
+    elif opt == 13:
         menu_principal()
     else:
         print("Opção inválida!")
