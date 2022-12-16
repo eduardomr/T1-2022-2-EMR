@@ -316,10 +316,10 @@ def main():
     while True:
         if alarme == 1:
             if leituraSensorJan() == 1 or leituraSensorPor() == 1 or leituraSensorPres() == 1:
-            ## INTEGRAR COM O SERVIDOR CENTRAL
-            GPIO.output(AL_BZ, GPIO.HIGH)
-            print("Sirene ligada!")
-            
+                ## INTEGRAR COM O SERVIDOR CENTRAL
+                GPIO.output(AL_BZ, GPIO.HIGH)
+                print("Sirene ligada!")
+
         if sala == 1: 
             msg = conexao1.recv(1024)
             if not msg:
